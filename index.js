@@ -36,10 +36,10 @@ function KewKew(worker, options) {
     , maxJobFailures: 3
     , prettifyJSON: false
   };
-  if (options !== null && true === options.destroySuccessfulJobs) { // disables these options
+  if (typeof options != 'undefined' && true === options.destroySuccessfulJobs) { // disables these options
     options.moveSuccessfulJobs = false;
   }
-  if (options !== null && true === options.destroyFailedJobs) { // disables these options
+  if (typeof options != 'undefined' && true === options.destroyFailedJobs) { // disables these options
     options.moveFailedJobs = false;
   }
   helpers.applyOptions(this.options, options);
