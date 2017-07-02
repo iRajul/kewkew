@@ -36,10 +36,10 @@ function KewKew(worker, options) {
     , maxJobFailures: 3
     , prettifyJSON: false
   };
-  if (true === options.destroySuccessfulJobs) { // disables these options
+  if (options !== null && true === options.destroySuccessfulJobs) { // disables these options
     options.moveSuccessfulJobs = false;
   }
-  if (true === options.destroyFailedJobs) { // disables these options
+  if (options !== null && true === options.destroyFailedJobs) { // disables these options
     options.moveFailedJobs = false;
   }
   helpers.applyOptions(this.options, options);
@@ -264,7 +264,9 @@ KewKew.prototype.push = function(data, options, callback) {
   }
   options = options || {};
   options.prettifyJSON = this.options.prettifyJSON;
-  options.scheduled = options.scheduled || new Date().getTime();
+  var currentDate = new Date();
+  currentDate.setTime(currentDate.getTime() + 10000);
+  options.scheduled = options.scheduled || currentDate;
   var job = new Job(data, options, this.options.directory);
   this._persist(job, function(err) {
     if (err) {
